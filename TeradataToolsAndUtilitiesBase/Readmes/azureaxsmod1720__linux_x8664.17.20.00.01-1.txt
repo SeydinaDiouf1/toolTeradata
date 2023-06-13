@@ -1,0 +1,44 @@
+Copyright 2023 Teradata.  All rights reserved.
+
+Description:
+
+Enhancement and problem fixed by this release are listed below:
+
+Teradata azureaxsmod 17.20.00.001
+=================================
+
+SA-54133 
+   Abstract: Ignored BufferSize in libazureaxsmod	
+SA-53763 
+   Abstract: ADLS2 user authentication
+
+Teradata azureaxsmod 17.20.00.000
+=================================
+
+SA-53740 
+   Abstract: New Linux compiler for Azure BlobStorage AXSMOD	
+SA-53745 
+   Abstract: Update Copyright of Azure Blob Storage Access Module
+   
+*****************************************************************************
+Platform Support: Linux
+
+Software Requirement: None
+
+No need to remove previous version of Teradata Access Module for Azure
+*****************************************************************************
+Installation Instructions:
+
+1. azureaxsmod1720__linux_x8664.17.20.00.01-1.tar.gz is a compressed TARed file that
+   contains Teradata Data Connector 17.20.00.01 package.
+
+2. Log on to Linux system as root user.
+
+3. Uncompress the azureaxsmod1720__linux_x8664.17.20.00.01-1.tar.gz file as follows:
+
+   # gunzip -c azureaxsmod1720__linux_x8664.17.20.00.01-1.tar.gz | tar xvf -
+
+4. Install the software as follows:
+
+   # cd azureaxsmod1720
+   # rpm -Uvh --force --nodeps azureaxsmod1720-17.20.00.01-1.x86_64.rpm

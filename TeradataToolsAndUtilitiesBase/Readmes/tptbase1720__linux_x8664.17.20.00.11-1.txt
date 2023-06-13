@@ -1,0 +1,107 @@
+
+Copyright 2000-2023, Teradata Corporation. All Rights Reserved.
+
+TERADATA CONFIDENTIAL AND TRADE SECRET.
+
+Dependencies:
+
+1. Shared common components for Internationalization for Teradata package
+   "tdicu" version 17.20.00.00 or later
+2. Teradata CLIv2 "cliv2" version 17.20.00.00 or later
+
+
+Enhancements and bugs fixed by this release are listed below:
+
+Teradata Parallel Transporter Base  17.20.00.11
+======================================================================
+  TPT-35620: TPT selector fails with TPT15119: Error: Data row is bigger 
+             than 1048576 bytes after receiving a network disconnect
+
+Teradata Parallel Transporter Base  17.20.00.10
+======================================================================
+  TPT-35581: Upgrade Postgres/DB2 ODBC drivers to 8.x
+  TPT-35584: Enhance the handling of the $INSERT macro to be inferred
+             from the source
+
+Teradata Parallel Transporter Base  17.20.00.09
+======================================================================
+  TPT-35410: TPT does not generate right column size when using the
+             "adjust Unicode" feature.
+  TPT-35542: TPT Update/Stream/Inserter operator failed to open temporary
+             LOB data files when loading CLOB/JSON/XML in dynamic in
+             dynamic deferred mode using UTF16 character set
+  TPT-35550: TPT ODBC Operator fails in SQLFetch for NULL columns when
+             SQL_SUCCESS_WITH_INFO is returned from ODBC driver
+
+Teradata Parallel Transporter Base  17.20.00.08
+======================================================================
+  TPT-35519:  bundle TDCH 1.5.14 with TPT
+
+Teradata Parallel Transporter Base  17.20.00.07
+======================================================================
+  TPT-35473:  Fixed a core dump with CASE...WHEN statements when
+              VARCHAR column had its actual data size greater than 32767
+              bytes
+
+  TPT-35474:  TPT Data Connector operator consumes much more CPU starting
+              with the TPT 17.00.00.06 version on z/OS
+
+Teradata Parallel Transporter Base  17.20.00.06
+======================================================================
+  TPT-35345: Improve how temp LOB files are stored and deleted; add
+             option for TPT to not delete.
+
+  Minor bug fixes and improvements
+
+Teradata Parallel Transporter Base  17.20.00.05
+======================================================================
+  TPT-35361  Update Operator exiting with '12' with no error message
+             when LOB control file not found.
+
+Teradata Parallel Transporter Base  17.20.00.04
+======================================================================
+  TPT-35249  TPT - Kafka Access Module jobs result in missing rows when
+             ErrorLimit is reached.
+
+  TPT-35288  Fixed max row size calculation that is used in JSON buffer 
+             allocation 
+
+
+Teradata Parallel Transporter Base  17.20.00.03
+======================================================================
+  TPT-35094  TPT Stream/Load/Update operators not handling ErrorLimit
+             correctly at checkpoint time.
+
+  TPT-35015  TPT consumer operators should delete temporary LOB files
+             at job termination time when the producer operator encountered
+             an error in the job before the data is sent to the TPT
+             consumer operator.
+
+  TPT-34985  Enhance Elicit LOB processing code to support 1MB buffers.
+
+  TPT-35061  Fix installed readme file describing correct location of
+             tptvalidate.sh
+
+  TPT-35183  TPT Data Connector operator should output the total number
+             records processed from the source (flat file/access module) on
+             the console.
+
+  TPT-35008  TPT no longer supports or releases 32-bit TPTAPI beginning 
+             with 17.20 
+
+
+Teradata Parallel Transporter Base  17.20.00.02
+========================================================================
+  TPT-35057:  TPT Selector operator should create an empty LOB data file 
+              for an empty LOB column in the deferred LOB extraction. 
+             
+Teradata Parallel Transporter Base  17.20.00.01
+========================================================================
+  Minor bug fixes and improvements
+
+Teradata Parallel Transporter Base  17.20.00.00
+========================================================================
+  TPT-34152:  TPT ODBC operator will be able to Load inline LOB/JSON/XML 
+              more than 64k.
+  TPT-34989:  Compile TPT with GCC 4.8.5 for Linux and Ubuntu.
+Documentation updates:

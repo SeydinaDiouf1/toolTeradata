@@ -1,0 +1,92 @@
+Teradata ICU is based on International Components for Unicode version 65 and
+provides a C/C++ library for Unicode 12.1 support. It is an installation
+prerequisite for Teradata CLIv2, ODBC Driver for Teradata, and 
+OLE DB Provider for Teradata.
+
+*****************************************************************************
+This file describes:
+* LINUX-x8664 tdicu 17.20.00.08
+
+*****************************************************************************
+Supported Platforms:
+* Red Hat Linux Advanced Platform 7.x (64-bit EM64T/Opteron)
+* Novell SUSE Linux Enterprise 12 (64-bit EM64T/Opteron)
+* Oracle Enterprise Linux 7 (64-bit EM64T/Opteron)
+* Centos Linux 7 (64-bit EM64T/Opteron)
+* Amazon Linux on AWS cloud(64-bit EM64T/Opteron)
+
+*****************************************************************************
+How to install this package:
+
+1.  Log on to LINUX-x8664 system as root user.
+
+2.  If necessary, uncompress and untar all files as follows:
+
+      # gunzip <filename.tar.gz>
+      # tar xof <filename.tar>
+
+3.  If applicable, remove previous software as follows:
+
+      # rpm -e tdicu1720
+
+4.  Install the software as follows:
+
+      # rpm -ivh --nodeps tdicu1720-17.20.00.08-1.x86_64.rpm
+
+*****************************************************************************
+List of all Issues addressed in this product since TTU 17.20 release.
+
+Please note: most efixes are not released for all platforms.
+
+*****************************************************************************
+*** EFIX 17.20.00.08 ********************************************************
+*****************************************************************************
+TDICU-2001
+   Fix Integer Overflow in 'UnicodeString::doAppend()' Function
+
+*****************************************************************************
+*** EFIX 17.20.00.06 ********************************************************
+*****************************************************************************
+TDICU-1977
+   (Install)  Update ttupublickey name as per TTU release version
+
+*****************************************************************************
+*** EFIX 17.20.00.05 ********************************************************
+*****************************************************************************
+TDICU-1961
+   (Install)  Add 3rd Party License File as PDF
+
+*****************************************************************************
+*** EFIX 17.20.00.04 ********************************************************
+*****************************************************************************
+TDICU-1933
+   (Install)  Add pkf file to TDICU on LINUX platform
+
+*****************************************************************************
+*** EFIX 17.20.00.03 ********************************************************
+*****************************************************************************
+TDICU-1907
+   (Install)  On a csh shell, TDICU fails to append bin path to the end of 
+   the PATH environment variable.
+
+*****************************************************************************
+*** EFIX 17.20.00.02 ********************************************************
+*****************************************************************************
+TDICU-1893
+   (Install)  TDICU sets the TTU release preceding the previous release as 
+   the active release rather than the prior release during uninstallation
+
+*****************************************************************************
+*** EFIX 17.20.00.01 ********************************************************
+*****************************************************************************
+TDICU-1866
+   (Install) TDICU installation creates wrong softlinks
+TDICU-1870
+   Add option to put the bin path at the end of the PATH environment variable
+
+*****************************************************************************
+*** EFIX 17.20.00.00 ********************************************************
+*****************************************************************************
+TDICU-1831
+   Upgrade Linux Toolset to build ICU 65.1
+   

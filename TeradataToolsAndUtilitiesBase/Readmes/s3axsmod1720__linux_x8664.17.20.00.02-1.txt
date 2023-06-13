@@ -1,0 +1,43 @@
+Copyright 2016-2023, Teradata Corporation.  All rights reserved.
+
+Description:
+Enhancements and/or problems fixed by this release are listed below:
+
+Teradata s3axsmod 17.20.00.002
+==============================
+SA-54100
+   Abstract: build with 17.20.04.00 AXMS3
+
+Teradata s3axsmod 17.20.00.001
+==============================
+SA-54122
+   Abstract: build with 17.00.01.11 AXMS3 to pick up the S3AltURI
+             bug fix
+
+Teradata s3axsmod 17.20.00.000
+==============================
+SA-53576
+   Abstract: Initial release for 17.20 (new toolset for Linux)
+
+*****************************************************************************
+Platform Support: Linux
+
+Software Requirement: None
+
+No need to remove previous version of Teradata Access Module for Amazon S3
+*****************************************************************************
+Installation Instructions:
+
+1. s3axsmod1710__linux_x8664.17.20.00.02-1.tar.gz is a compressed TARed file that
+   contains Teradata Access Module for Amazon S3 17.20.00.02 package.
+
+2. Log on to Linux system as root user.
+
+3. Uncompress the s3axsmod1710__linux_x8664.17.20.00.02-1.tar.gz file as follows:
+
+   # gunzip -c s3axsmod1710__linux_x8664.17.20.00.02-1.tar.gz | tar xvf -
+
+4. Install the software as follows:
+
+   # cd s3axsmod1710
+   # rpm -Uvh --force --nodeps s3axsmod1710-17.20.00.02-1.x86_64.rpm

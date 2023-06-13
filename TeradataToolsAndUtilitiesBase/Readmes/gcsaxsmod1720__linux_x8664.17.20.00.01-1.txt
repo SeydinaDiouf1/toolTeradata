@@ -1,0 +1,39 @@
+Copyright 2020-2022, Teradata Corporation.  All rights reserved.
+
+Description:
+Enhancements and/or problems fixed by this release are listed below:
+
+Teradata gcsaxsmod 17.20.00.001
+===============================
+SA-54194 - Release with newest AXMGCP 17.20.04.00, built with same
+           toolset as TPT
+
+Teradata gcsaxsmod 17.20.00.000
+===============================
+SA-53577 - Initial release for 17.20
+
+*****************************************************************************
+Platform Support: Linux
+
+Software Requirement: None
+
+No need to remove previous version of Teradata Access Module for GCS
+*****************************************************************************
+Installation Instructions:
+
+1. gcsaxsmod1710__linux_x8664.17.20.00.01-1.tar.gz is a compressed TARed file that
+   contains Teradata Access Module for GCS 17.20.00.01 package.
+
+2. It is not necessary to remove the existing version of
+   Teradata Access Module for GCS on the system.
+
+3. Log on to Linux system as root user.
+
+4. Uncompress the gcsaxsmod1710__linux_x8664.17.20.00.01-1.tar.gz file as follows:
+
+   # tar -zxf gcsaxsmod1710__linux_x8664.17.20.00.01-1.tar.gz
+
+5. Install the software as follows:
+
+   # cd gcsaxsmod
+   # rpm -Uvh --force --nodeps gcsaxsmod1710-17.20.00.01-1.x86_64.rpm

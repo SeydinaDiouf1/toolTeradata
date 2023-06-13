@@ -1,0 +1,50 @@
+Copyright 2022, Teradata. All rights reserved.
+
+Description:
+
+Enhancement and problem fixed by this release are listed below:
+
+Teradata FastExport 17.20.00.002
+================================
+    SA-53864  Certify FastExport 17.20 on Windows 11
+    SA-53876  Certify FastExport 17.20 on Windows Server 2022
+    SA-53957  Specifying CONTINUEIF in LAYOUT command corrupts the input record
+    
+Teradata FastExport 17.20.00.001
+================================
+    SA-53782 Build FastExport with new UselDir library
+
+Teradata FastExport 17.20.00.000
+================================
+    SA-53607 : FastExport fails to logon when port number is specified in the logon string
+    SA-53641 : New Linux compiler for FastExport
+    SA-53623 : Update CopyRight changes of FastExport
+
+Dependencies:
+
+1. Shared common components for Internationalization for Teradata (tdicu)
+   17.20.00 or later
+2. Teradata CLIv2 (cliv2 or cliv2so) 17.20.00 or later
+3. Teradata Data Connector (piom) 17.20.00 or later
+
+Document Update: N/A
+
+Installation Instructions:
+
+1. fastexp1720__linux_x8664.17.20.00.02-1.tar.gz is a compressed TARed file that
+   contains the Teradata FastExport package.
+
+2. It is not necessary to remove the existing version of
+   Teradata FastExport on the system.
+
+3. Log on to Linux system as root user.
+
+4. Uncompress the fastexp1720__linux_x8664.17.20.00.02-1.tar.gz file as follows:
+
+   # gunzip -c fastexp1720__linux_x8664.17.20.00.02-1.tar.gz | tar xvf -
+
+5. Install the software as follows:
+
+   # cd fastexp1720
+   # rpm -Uvh --force --nodeps fastexp1720-17.20.00.02-1.x86_64.rpm
+

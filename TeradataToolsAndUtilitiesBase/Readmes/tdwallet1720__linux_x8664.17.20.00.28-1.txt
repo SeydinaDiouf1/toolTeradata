@@ -1,0 +1,196 @@
+Copyright 2011-2022 Teradata.  All Rights Reserved.
+
+
+Teradata Wallet provides secure storage for private information, such as
+Teradata Database passwords, on client computers. The stored information
+can then be used when logging on to the Teradata Database.
+For more information on Teradata Wallet:
+(1) Enter "tdwallet help" at the command prompt.
+(2) See also B035-1100, Security Administration.
+
+
+***********************
+* Supported platforms *
+***********************
+- Amazon Linux on AMD Opteron on AWS(TM) Cloud
+- Amazon Linux on Intel Xeon with EM64T on AWS(TM) Cloud
+- CentOS 8.x
+- CentOS 7.x
+- CentOS 6.x
+- Novell 64-bit SUSE Linux Enterprise 12 on AMD Opteron
+- Novell 64-bit SUSE Linux Enterprise 12 on Intel Xeon with EM64T
+- Novell 32-bit SUSE Linux Enterprise 12 on AMD Opteron
+- Novell 32-bit SUSE Linux Enterprise 12 on Intel Xeon with EM64T
+- Novell 64-bit SUSE Linux Enterprise 11 on AMD Opteron
+- Novell 64-bit SUSE Linux Enterprise 11 on Intel Xeon with EM64T
+- Novell 32-bit SUSE Linux Enterprise 11 on AMD Opteron
+- Novell 32-bit SUSE Linux Enterprise 11 on Intel Xeon with EM64T
+- Oracle Enterprise Linux 8 on AMD Opteron
+- Oracle Enterprise Linux 8 on Intel Xeon with EM64T
+- Oracle Enterprise Linux 7 on AMD Opteron
+- Oracle Enterprise Linux 7 on Intel Xeon with EM64T
+- Oracle Enterprise Linux 6 on AMD Opteron
+- Oracle Enterprise Linux 6 on Intel Xeon with EM64T
+- Red Hat 64-bit Advanced Platform 8.X on AMD Opteron
+- Red Hat 64-bit Advanced Platform 8.X on Intel Xeon with EM64T
+- Red Hat Advanced Platform 8.X on AMD Opteron
+- Red Hat Advanced Platform 8.X on Intel Xeon with EM64T
+- Red Hat 64-bit Advanced Platform 7.X on AMD Opteron
+- Red Hat 64-bit Advanced Platform 7.X on Intel Xeon with EM64T
+- Red Hat Advanced Platform 7.X on AMD Opteron
+- Red Hat Advanced Platform 7.X on Intel Xeon with EM64T
+- Red Hat 64-bit Advanced Platform 6.X on AMD Opteron
+- Red Hat 64-bit Advanced Platform 6.X on Intel Xeon with EM64T
+- Red Hat Advanced Platform 6.X on AMD Opteron
+- Red Hat Advanced Platform 6.X on Intel Xeon with EM64T
+
+Note: x86-64 (64-bit) executables are included in this package.
+
+
+*****************************
+* Installation instructions *
+*****************************
+1. Log on as root.
+
+2. Uncompress as follows:
+   # gunzip tdwallet1720__linux_x8664.17.20.00.28-1.tar.gz
+
+3. Untar as follows:
+   # tar xof tdwallet1720__linux_x8664.17.20.00.28-1.tar
+
+4. If applicable, remove previous software as follows:
+   # rpm -e tdwallet1720
+
+5. Install the software as follows:
+   # rpm -ivh tdwallet1720/tdwallet1720-17.20.00.28-1.x86_64.rpm
+
+
+********************
+* Issues addressed *
+********************
+
+Teradata Wallet 17.20.00.24 for Linux
+=====================================
+CLNTINS-17846 -- Installation now depends on the ttupublickey1720 package
+                 instead of depending on the ttupublickey package.
+
+Teradata Wallet 17.20.00.21 for Linux
+=====================================
+CLNTINS-17038 -- Installation creates a licensing file in PDF format.
+
+Teradata Wallet 17.20.00.18 for Linux
+=====================================
+CLNTINS-17068 -- Avoid file conflicts when upgrading from an earlier
+                 version of the software.
+
+Teradata Wallet 17.20.00.17 for Linux
+=====================================
+CLNTINS-16923 -- The installation path is added to the PATH environment
+                 variable when using the C shell.
+
+Teradata Wallet 17.20.00.16 for Linux
+=====================================
+TDWLT-2947 -- When the data file cannot be opened, the Teradata Wallet
+              software generates an error message with more information.
+
+Teradata Wallet 17.10.00.22 for Linux
+=====================================
+TDWLT-2721 -- The tdwallet daemon process does not hang on newer
+              Ubuntu/Linux systems.
+
+Teradata Wallet 17.10.00.07 for Linux
+=====================================
+TDWLT-2590 -- Concurrent Teradata Wallet jobs complete reliably.
+
+Teradata Wallet 17.00.00.33 for Linux
+=====================================
+TDWLT-517 -- tdwhelper.exe is no longer a set-user-ID program.
+
+Teradata Wallet 17.00.00.21 for Linux
+=====================================
+TDWLT-2314 -- Concurrent reads from a wallet no longer result in a
+              "The data file is locked" error.
+
+Teradata Wallet 17.00.00.20 for Linux
+=====================================
+CLNTINS-5914 -- Software installation creates td-ttu.sh and td-ttu.csh
+                files in /etc/profile.d instead of updating
+                the /etc/profile and /etc/csh.login files.
+
+Teradata Wallet 17.00.00.10 for Linux
+=====================================
+TDWLT-1733 -- Teradata Wallet can concurrently field read requests to a
+              wallet.
+
+Teradata Wallet 17.00.00.09 for Linux
+=====================================
+TDWLT-2211 -- The Teradata Wallet software works when the .genuine_TTU
+              file is a character-special file (instead of requiring it
+              to have the set user ID on execution mode bit enabled).
+
+Teradata Wallet 16.20.00.14 for Linux
+=====================================
+TDWLT-1912 -- Teradata Wallet software works within a Docker container.
+
+Teradata Wallet 16.20.00.13 for Linux
+=====================================
+TDWLT-1907 -- Security is enhanced.
+
+Teradata Wallet 16.20.00.11 for Linux
+=====================================
+TDWLT-1573 -- Software that uses Teradata Wallet can use a later
+              release of Teradata Wallet.
+
+Teradata Wallet 16.20.00.02 for Linux
+=====================================
+CLNTINS-8551 -- The .rpm file containing the Teradata Wallet software is
+                digitally signed.
+
+Teradata Wallet 16.20.00.01 for Linux
+=====================================
+CLNTINS-8355 -- The Teradata Wallet package installs
+                the ThirdPartyLicensesTTU.txt file.
+
+Teradata Wallet 16.20.00.01 for Linux
+=====================================
+TDWLT-1727 -- The Teradata Wallet software caches information from
+              the config.xml file into a file named .config.bin in a
+              format that yields increased performance.
+
+Teradata Wallet 16.10.00.08 for Linux
+=====================================
+TDWLT-1742 -- The user can install the Teradata Wallet software package
+              over itself without encountering an error.
+
+Teradata Wallet 16.10.00.01 for Linux
+=====================================
+TDWLT-516 -- The Teradata Wallet service is
+             started by a run control script.
+
+Teradata Wallet 16.00.00.08 for Linux
+=====================================
+CLNTINS-7274 -- The .genuine_TTU file contains a comment
+                explaining the purpose of the file.
+
+Teradata Wallet 16.00.00.05 for Linux
+=====================================
+TDWLT-1562 -- The Teradata Wallet software will not
+              crash when the internationalization
+              environment variables are improperly
+              set.
+
+Teradata Wallet 16.00.00.02 for Linux
+=====================================
+CLNTINS-7113 -- Earlier Teradata Wallet releases
+                can be installed alongside Teradata
+                Wallet 16.00.
+
+Teradata Wallet 16.00.00.02 for Linux
+=====================================
+TDWLT-1546 -- The wallets directory automatically
+              is created by the software.
+
+Teradata Wallet 16.00.00.01 for Linux
+=====================================
+CLNTINS-7105 -- DSA BARCmdLine works when TTU 16.00
+                is installed on the same machine.

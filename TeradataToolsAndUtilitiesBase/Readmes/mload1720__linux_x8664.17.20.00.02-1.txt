@@ -1,0 +1,50 @@
+Copyright 2022, Teradata. All rights reserved.
+
+Description:
+
+Enhancement and problem fixed by this release are listed below:
+
+Teradata MultiLoad 17.20.00.002
+===============================
+    SA-53867  Certify MultiLoad 17.20 on Windows 11
+    SA-53879  Certify MultiLoad 17.20 on Windows Server 2022
+    SA-53957  Specifying CONTINUEIF in LAYOUT command corrupts the input record
+    
+Teradata MultiLoad 17.20.00.001
+===============================
+    SA-53781 Build MultiLoad with new UselDir library
+
+Teradata MultiLoad 17.20.00.000
+===============================
+    SA-53607 : MultiLoad fails to logon when port number is specified in the logon string
+    SA-53642 : New Linux compiler for MultiLoad
+    SA-53624 : Update CopyRight changes of MultiLoad
+  
+Dependencies:
+
+1. Shared common components for Internationalization for Teradata (tdicu)
+   17.20.00 or later
+2. Teradata CLIv2 (cliv2 or cliv2so) 17.20.00 or later
+3. Teradata Data Connector (piom) 17.20.00 or later
+
+Document Update: N/A
+
+Installation Instructions:
+
+1. mload1720__linux_x8664.17.20.00.02-1.tar.gz is a compressed TARed file that
+   contains the Teradata MultiLoad package.
+
+2. It is not necessary to remove the existing version of
+   Teradata MultiLoad on the system.
+
+3. Log on to Linux system as root user.
+
+4. Uncompress the mload1720__linux_x8664.17.20.00.02-1.tar.gz file as follows:
+
+   # gunzip -c mload1720__linux_x8664.17.20.00.02-1.tar.gz | tar xvf -
+
+5. Install the software as follows:
+
+   # cd mload1720
+   # rpm -Uvh --force --nodeps mload1720-17.20.00.02-1.x86_64.rpm
+

@@ -1,0 +1,105 @@
+Copyright 2021-2022 Teradata. All rights reserved.
+
+Description:
+
+Enhancement and problem fixed by this release are listed below:
+
+Teradata jmsaxsmod 17.20.00.000
+===============================
+
+SA-53702 
+   Abstract:  New Linux compiler for JMSAXSMOD
+SA-53626 
+   Abstract:  Update CopyRight changes of JMS Access Module
+jmsaxsmod1720__linux_x8664.17.20.00.00-1.tar.gz is a compressed TARed  RPM file that
+contains the Teradata Access Module for JMS 17.20.00.00 package.
+*****************************************************************************
+Platform Support: Linux
+
+Software Requirement:
+  o JDK Version: JDK1.8 or above
+  o JMS Enable Messaging system: IBM WebSphere MQ (or) BEA WebLogic JMS (or) Apache ActiveMQ (or) any other JMS server (with JMS Version 1.1).
+
+No need to remove previous version of Teradata Access Module for JMS.
+
+*****************************************************************************
+How to install this efix:
+
+1.     Log on to Linux system as root user.
+
+2.     Uncompress the tar.gz file as followed:
+
+       # gunzip -c <tar.gz file> | tar xvf -
+
+       where <tar.gz file> is the compressed TARed file.
+
+3.     Install the software as followed:
+
+       # rpm -Uvh <rpm file> --nodeps
+
+       where <rpm file> is the Teradata Access Module for JMS RPM file.
+
+Missing Dependent Libraries
+
+The JMS rpm depends on libjvm.so library being installed. 
+The libjvm.so is provided in the java opensdk rpm ( e.g., for centos - java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el6_8.x86_64.rpm). 
+Download the java opensdk rpm for your flavor of Linux and please use zypper or yum to install the package 
+because it depends on a lot of other packages which will be taken care of the zypper or yum.
+
+
+*****************************************************************************
+Loading JMSAM:
+
+To load JMSAM, set environment variables that are specific to the JMS-compliant message service providers and Java runtime environment.
+
+Example of environment variables are shown below:
+
+
+1. Set local variables JAVA_HOME, JAVA_LIB, JMSCLIENT_JARS.
+
+	Set JAVA_HOME to J2SE SDK installation directory.
+	Set JAVA_LIB to Java runtime environment library.
+	Set JMSCLIENT_JARS to directory containing JMS-compliant message service's .jar files
+
+Examples of some commonly used JMS Server jar files are:
+	IBM WebSphere MQ: jms.jar, jndi.jar, provider.jar,fscontext.jar,  connector.jar, com.ibm.mq.jar, com.ibm.mqjms.jar, jta.jar
+
+	BEA WebLogic: weblogic.jar
+	
+	Apache ActiveMQ: activemq-all-5.16.3.jar
+
+
+The following example sets environment variables for JAVA and Apache ActiveMQ JMS server (5.16.3)  
+-------------------------------------------------------------------------------------------------
+
+1.  Set local variables JAVA_HOME, JAVA_LIB
+
+For Example:
+
+export JAVA_HOME=/usr/java/jdk1.8.0_161
+export JAVA_LIB=/usr/java/jdk1.8.0_161/jre/lib/amd64
+
+
+2. Set CLASSPATH to the directory containing:
+
+	jmsam_charsets.properties
+	jmsam.jar
+	any JMS-complient messaging library classes
+
+For Example:
+
+export JMSCLIENT_JARS=/apache-activemq-5.16.3/activemq-all-5.16.3.jar
+export JMSAM_CLASSPATH=/opt/teradata/client/17.10/lib64/:/opt/teradata/client/17.10/jmsaxsmod_64/jmsam.jar
+export CLASSPATH=$JMSCLIENT_JARS:$JMSAM_CLASSPATH:$CLASSPATH
+
+
+3. Set LD_LIBRARY_PATH to the directory containing:
+
+	libjvm.so
+	libjava.so
+
+
+For Example:
+
+export LD_LIBRARY_PATH=$JAVA_LIB:$JAVA_LIB/server:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/teradata/client/17.10/lib64/:$LD_LIBRARY_PATH

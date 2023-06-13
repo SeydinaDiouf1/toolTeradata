@@ -1,0 +1,32 @@
+<comps>
+    <group>
+      <id>ttu-foundation-1720</id>
+      <name>TTU Foundation 1720</name>
+      <default>true</default>
+      <uservisible>true</uservisible>
+      
+      <description>This is a TTU Foundation 1720 group.</description>
+      <packagelist>
+        <packagereq type="optional">azureaxsmod1720</packagereq>
+        <packagereq type="optional">bteq1720</packagereq>
+        <packagereq type="mandatory">cliv21720</packagereq>
+        <packagereq type="optional">fastexp1720</packagereq>
+        <packagereq type="optional">fastld1720</packagereq>
+        <packagereq type="optional">gcsaxsmod1720</packagereq>
+        <packagereq type="optional">jmsaxsmod1720</packagereq>
+        <packagereq type="optional">kafkaaxsmod1720</packagereq>
+        <packagereq type="optional">mload1720</packagereq>
+        <packagereq type="optional">mqaxsmod1720</packagereq>
+        <packagereq type="optional">npaxsmod1720</packagereq>
+        <packagereq type="default">piom1720</packagereq>
+        <packagereq type="optional">s3axsmod1720</packagereq>
+        <packagereq type="mandatory">ttupublickey1720</packagereq>
+        <packagereq type="optional">sqlpp1720</packagereq>
+        <packagereq type="mandatory">tdicu1720</packagereq>
+        <packagereq type="optional">tdodbc1720</packagereq>
+        <packagereq type="optional">tdwallet1720</packagereq>
+        <packagereq type="optional">tptbase1720</packagereq>
+        <packagereq type="optional">tpump1720</packagereq>
+      </packagelist>
+    </group>
+</comps>

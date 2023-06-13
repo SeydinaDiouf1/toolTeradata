@@ -1,0 +1,108 @@
+bteq.17.20.00.06.txt
+********************************************************************************
+These alias refer to corresponding actual file names:
+CompressedFileName : bteq1720__linux_x86_64.17.20.00.06-1.tar.gz
+TarFileName        : bteq1720__linux_x86_64.17.20.00.06-1.tar
+PackageName        : bteq1720
+RPMFileName        : bteq1720-17.20.00.06-1.x86_64.rpm
+
+RPMFileName is a Linux RPM package file which contains
+BTEQ version 17.20.00.06 (64-bit) for LINUX.
+
+Note: A BTEQ 64-bit package was made available starting BTEQ 16.20.00.07.
+
+When switching from using the 32-bit package, "NOTIFY EXIT" source has to be
+recompiled to use the 64-bit version of bteq. Here is how to extract those
+files:
+>rpm2cpio <64-bit bteq rpm> | cpio -idmv --no-absolute-filenames *btnfyext.h *btnfyext.c
+>mv opt/teradata/client/*/*/btnfyext* .
+>rm -r opt 
+
+The above will copy only the required files out of the rpm.  The mv and rm
+commands are simply to remove the files into the current directory, because
+the files are extracted including the entire relative path.
+
+BTEQ's install provides three type of files to create exit modules:
+a sample C file, the header file required by the sample C file,
+and a makefile. The respective files are located in the following
+locations:
+
+* /opt/teradata/client/<version>/sample/btnfyext.c
+* /opt/teradata/client/<version>/include/btnfyext.h
+* /opt/teradata/client/<version>/sample/mkbtnfyext.linux_64
+
+When using 64-bit BTEQ with Notify Exit modules, the Notify modules also need to
+be compiled in 64-bit mode. Compile the module with the following options:
+
+ -fPIC -shared
+
+The resulting module is in shared library format.
+
+To run the sample makefile, enter the following command:
+
+make -f mkbtnfyext.linux_64
+
+The exit must be specified using a filesystem path descriptor unless
+the environment variable LD_LIBRARY_PATH is set to point to the module
+at run time.
+
+********************************************************************************
+Platform Support: LINUX
+
+Software Requirement: None
+
+Make sure no BTEQ job is running while installing this package.
+
+********************************************************************************
+Installation Instructions:
+
+1. Log on to LINUX system as root user.
+
+2. Uncompress the compressed file as follows:
+   # gunzip CompressedFileName
+
+3. Untar the tar file as follows:
+   # tar xof TarFileName
+   
+4. Remove previous version of bteq and install the software as follows:
+# rpm -Uvh PackageName/RPMFileName
+
+********************************************************************************
+Cumulative Changes:
+
+BTEQ 17.20.00.06
+================
+Minor bug fixes and improvements.
+
+BTEQ 17.20.00.05
+================
+Minor bug fixes and improvements.
+
+BTEQ 17.20.00.04
+================
+Minor bug fixes and improvements.
+
+BTEQ 17.20.00.03
+================
+IMP BTEQ-12198 : BTEQ now has an ALL extension to the OFF switch for
+                 TRANSLATECTRLSTOSPACES command which, when used, inhibits the
+                 translation of control characters to spaces from the title rows
+                 in Field Mode report bound for stdout or an EXPORT REPORT file.
+
+BTEQ 17.20.00.02
+================
+Skipped.
+
+BTEQ 17.20.00.01
+================
+Re-build to pick up new USelDir that supports UTF8-CPP.
+
+BTEQ 17.20.00.00
+================
+FIX BTEQ-13503 : BTEQ does not hang upon subsequent requests if deferred mode LOB
+                 loading results in a DBS failure.
+
+IMP BTEQ-13279 : Linux BTEQ is now built using GCC 4.8.5 available on SLES12
+                 instead of GCC 4.3.4 available on SLES11.
+
+********************************************************************************

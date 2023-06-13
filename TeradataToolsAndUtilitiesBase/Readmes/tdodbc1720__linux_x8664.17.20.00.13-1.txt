@@ -1,0 +1,792 @@
+Copyright (c) 2011-2022, Teradata Corporation.
+ALL RIGHTS RESERVED
+
+
+                              Teradata ODBC Driver
+                               (32-bit & 64-bit)
+                                      for
+                                     LINUX
+
+
+Product: ODBC Driver For Teradata
+Version: 17.20.00.013
+Product Signing Key: The public key is located at https://www.teradata.com/Security-Information
+
+Contents
+    1.0 Introduction
+    2.0 Release Content
+    3.0 Requirements
+    4.0 ODBC Software Installation/Uninstallation
+    5.0 Configuration
+    6.0 Sample ODBC Applications
+    7.0 Restrictions
+    8.0 Limitations/Issues
+    9.0 Documentation
+    10.0 Support
+    Appendix A - ODBC Coexistence (32-bit and 64-bit)
+    Appendix B - ODBC Integrated Directories
+    Appendix C - Client Usage Note on SLOB transfer from Server to Client
+
+
+1.0 Introduction
+
+    This release of the ODBC driver for Teradata will support Teradata 17.20
+    features in both Teradata mode and ANSI mode, and is backwards
+    compatible with previous releases of Teradata as noted in section 3.2.
+
+    The TTU has introduced a new TTU directory tree structure which
+    has unified all the TTU products under a common TTU release directory.
+    The ODBC installation package has taken steps to make this new tree
+    structure transparent to the existing ODBC users.  Please refer Appendix
+    A and B for recommended usage of ODBC paths and odbc.ini file.
+
+
+2.0 Release Content
+
+    2.1 Enhancements & New Features
+        The following new features are introduced in Teradata ODBC Driver 17.20.00.013.
+        * [SF 02801276] Updated macOS support
+
+        On macOS, the connector is now a Universal driver that natively supports
+        Apple Silicon and is compatible with macOS versions 10.14 and later. macOS
+        versions earlier than 10.14 are not supported by the connector due to
+        library incompatibilities and Apple's deprecated support for older macOS
+        versions. For security best practices, it is suggested to keep both the 
+        connector and OS updated.
+
+
+    
+    2.2 Resolved Issues
+        
+        The following issues were resolved in Teradata ODBC Driver 17.20.00.013.
+         * [SF 00423130] When retrieving multiple SLOB columns with redrive turned on,
+           the connector returns an error. 
+
+         * [SF 00426364] When inserting a parameterized array of DECIMAL type 
+           containing null values, the database returns a "Invalid data length for 
+           VarChar, VarByte, VARGRAPHIC or NUMBER" error message.  
+
+         * [SF 02801214] In some cases, the connector fails to connect to the server.
+
+           This issue has been resolved. The connector now attempts to connect 
+           multiple times until a successful connection is found or login timeout is
+           reached.
+
+         * [SF 02801071] When the Teradata Gateway TLS setting is set to enable and
+           PCLGTWCONFIGPORTS returns 1 for both TLS and Legacy ports, the connector 
+           connects to the fallback port. 
+
+           This issue has been resolved. The connector now returns an error message 
+           indicating that the preferred port is enabled, but the connector fails to
+           connect to it.
+
+
+        
+    2.3 Teradata issues that no longer occur
+
+        * ODBC Driver reports incorrect ODBC version
+
+        * ODBC driver v 14.10.0.6 and higher having high RAM utilization
+          impacting MS Access 2010
+      
+        * SQL Assistant 16.10 Problem with ODBC driver and LOBs
+
+        * ODBC Light Weight Parser fails to compile Stored Procedure when
+          Stored Procedure has comments in body
+
+        * ODBC Driver throws [Error 22003] [Numeric value out of range] using
+          SQLBindParameter when the whole portion contains leading zeros and
+          whole portion > (Precision - Scale) is inserted into DECIMAL column
+     
+    2.4 Known Issues
+
+    The following are known issues that you may encounter due to limitations in
+    the data source, the driver, or an application.
+
+        * [SF 00392810] StatementInfo Parcel returns errors for TIME parameters.
+
+           When using StatementInfo Parcel and stored procedures with a TIME
+           parameter are called, the connector returns an error.
+
+        * Some custom fields not supported for SQLGetDescField
+        
+          When calling SQLGetDescField, the driver does not support the
+          SQL_DESC_TD_ACTIVITY_TYPE and SQL_DESC_TD_COST_ESTIMATE custom header 
+          description fields.
+          
+        * Catalog functions always return ODBC 3.x column names.
+          
+          For catalog functions, the driver returns the ODBC 3.x column names rather 
+          than ODBC 2.x column names, even in an ODBC 2.x environment.
+
+        * The SQL_ATTR_ROWS_FETCHED_PTR statement attribute cannot be set properly.
+        
+          You can set a value by calling SQLSetStmtAttr(SQL_ATTR_ROWS_FETCHED_PTR),
+          but the value is reset after you close the cursor. The value that you set
+          does not persist.
+          
+        * In specific cases, during INSERT operations that require the data to be
+          truncated, there is no message indicating that truncation has occurred.
+          
+          This behavior occurs when:
+          - The Session Mode option (the SessionMode property) is set to Teradata,
+          - The driver inserts data that is too large for the target column.
+
+          The database truncates the data to fit, but the message indicating that 
+          truncation has occurred is not returned. The driver expects the database 
+          to report the truncation. However, when Session Mode is set to Teradata, 
+          the database does not return the truncation message.
+          
+          
+    2.5 Version History
+
+        2.5.1 
+        
+            Version 17.20.00.011 Resolved Issues
+             * [SF 00392810] StatementInfo Parcel support
+            The connector now sends the StatementInfo Parcel to the database. This new
+            parcel includes new data type codes for the DateTime and Interval data 
+            types, enabling implicit cast from one type to another. 
+
+            * [SF 00393161] Online Certificate Status Protocol support  
+            The connector now supports Online Certificate Status Protocol (OCSP) and
+            OCSP Stapling. This includes caching of OCSP Responses for improved 
+            performance.
+
+            * [SF 00410471] Certificate Revocation List support
+            The connector now supports Certificate Revocation List (CRL). This includes
+            caching of CRL Responses for improved performance.
+            
+            * [SF 00406921] When using the column type TIMESTAMP NOT NULL, SQLDescibeCol 
+            returns an incorrect column size.
+
+            * [SF 00410280]  After a database restart, the client is unable to issue new
+            queries.
+
+            * [SF 00411523] After the database restarts or network disconnects when 
+            executing SQLExecute or SQLFetch, the connector does not resume execution. 
+
+            * [SF 00412009] When inserting DOUBLE values to a VARCHAR column using a 
+            parameterized array insert, the connector may insert the same first value 
+            repeatedly instead of inserting sequential DOUBLE data values from the 
+            array.
+
+            * [SF 00412809] In some cases, when the database sends an AckRequested parcel
+            to the connector, the connector does not respond with a MessageReceived 
+            parcel.
+
+            * [SF 00413092] When calling SQLTables and the schema name parameter is
+            enclosed in double quotation marks ( " ), the database returns a "Syntax
+            error: Blank name in quotation marks" error message.
+
+            Version 17.20.00.010 Resolved Issues
+            * [SF 395158][SF 395159][SF 395157] Updated platform support
+            The connector now supports the following platforms: 
+                - RedHat 8.5 and 9
+                - Ubuntu 22.04
+
+            * [SENTDO-2497] Updated dependency files 
+            The connector dependency files have been updated.
+            
+            * [SF 400829] A socket was not properly closed, causing a connection 
+            failure.
+
+            * [SF 387853] The HTTP response buffer was incorrectly initialized, causing
+            a memory leak and buffer overrun issue.
+        
+            Version 17.20.00.008 Resolved Issues
+            * [SF 398783] Browser tab timeout support
+            The connector can now automatically close the browser tab opened by 
+            Federated authentication. To do this, from the EXTERNALBROWSER Tab Timeout
+            drop-down list select Enable and in the Timeout (seconds) field specify 
+            the desired time, in seconds, to wait before the browser closes after
+            authenticating (set the BrowserTabTimeout property to length of time to
+            wait).
+          
+            * [SF 400619] Updated help files
+            On Windows, the Japanese help files have been updated.
+        
+            * [SF 390312] SSO login failure
+            In some cases, even if the TDWallet string is saved in the DSN,
+            the connector fails to connect to the database.
+            
+            Version 17.20.00.006 Resolved Issues
+            * [SF 396787] Upgraded OpenSSL
+            The connector now uses OpenSSL version 1.1.1q. Previously, the connector
+            used 1.1.1n.
+        
+            * [SF 393149] Updated MaxRespSize property
+            The default value for the MaxRespSize property of new DSNs is now 524,288 (512K). 
+            Previously, it was 65,536 (64K).
+          
+            * [SF 389232] When calling SQLDescribeCol, and the query contains 
+            multi-statements (statements separated by semicolons), the connector
+            returns incorrect column names. 
+
+            * [SF 395013] When using Microsoft SSIS to load the connector and the 
+            TDWallet value is saved in the DSN, the connector returns an error. 
+            
+            Version 17.20.00.002 Resolved Issues
+            * [TDS-362] When using MS Access queries with DATE criteria, the 
+            connector returns an error.
+        
+            * [TDS-571] When Teradata Gateway TLS setting is set to nolegacy mode and
+            the connector SSLMode is set to Allow, the connector is unable to fallback
+            to TLS connection.
+            
+            Version 17.20.00.001 Resolved Issues
+            * [TDS-541] The connector now supports Windows 11
+            
+            * [TDS-542] The connector now supports Windows Server 2022
+            
+            * [TDS-551] The connector now supports Ubuntu 20.04
+            
+            * [TDS-552] Upgraded OpenSSL.
+            
+            The connector now uses OpenSSL version 1.1.1n. 
+            Previously, the connector used 1.1.1l.
+            
+            * [TDS-553] Upgraded Expat.
+            
+            The connector now uses Expat version 2.4.6. 
+            Previously, the connector used 2.2.9
+            
+            * [TDS-566][TDS-567] Upgraded Terasso library.
+            
+            The connector now uses Terasso version 17.20.00.05 
+            Previously, the connector used 17.20.00.03
+            
+            * [TDS-543] Federate Authentication port number
+            When using Federate Authentication and the identity provider URL doesn't
+            have a port number: 
+            - for https, the connector now uses default port 443
+            - for HTTP, the connector now uses default port 80 
+            
+            * [TDS-543] Improved socket error messages
+            The socket error messages are now more descriptive for Identity Provider 
+            URL and Token endpoint URL.
+            
+            * [TDS-545] When using TD Gateway with the EXTERNALBROWSER mechanism and
+            the clientID or Identity Provider is not set, the connector logins and does
+            not return an error.
+            
+            * [TDS-499] When calling SQLBindParameter(..., SQL_C_CHAR, SQL_CHAR, ...)
+            on a database column with the NUMBER type, the database generates a "22003:
+            Badcharacter in format or data of ..." error message.
+            
+            * [TDS-407] In some cases, when the connector and TPT coexist in the same
+            process, the connector terminates unexpectedly.
+            
+            * [TDS-529] When Teradata GSS is configured to Kerberos authentication, 
+            but the DSN or connection string specifies a different authentication 
+            method, the connector fails to make a connection to the database.
+            
+            * [TDS-548] When using SSLMode, the connector does not detect socket 
+            level errors and continues to operate. 
+            
+            * [TDS-549] When users keep calling SQLConnect and SQLDisconnect 
+            repeatedly, the connector may encounter an intermittent port number 
+            response error.
+            
+            * [TDS-550] The connector does not send an acknowledgement request.
+            
+            * [TDS-555] When TLS port is enabled, the connection fails. 
+            
+            * [TDS-558] Improved performance for connections
+            The connector now has a better success rate when connecting to the Teradata
+            database if the port status returns incorrectly.
+            
+            * [TDS-565] The connector incorrectly logs the number of detected COP 
+            entries from the Teradata database.
+            
+            Version 17.20.00.000 Resolved Issues
+            * [TDS-538] When executing SQLStatistics, the connector appends extra
+            double quotation marks ( " ) to the query, resulting in a syntax error.
+            
+            * [TDS-539] When connecting with Microsoft Access, an unexpected 
+            connection dialog box appears.
+            
+            * [TDS-515] Support for Unbounded Array Framework
+            
+            The connector now supports the Unbounded Array Framework (UAF) feature.
+            
+            * [TDS-534] Updated GCC support
+            
+            On Linux, the connector now supports GCC version 4.8.5
+            
+            Please refer to the 17.10.00.015 release README for the previous history of 
+            the ODBC driver.
+    
+    
+3.0 Requirements
+
+    3.1 System
+
+            RedHat Enterprise Linux 7.x on EM64T & Opteron
+            RedHat Enterprise Linux 8.x on EM64T & Opteron
+            RedHat Enterprise Linux 9.x on EM64T & Opteron
+            SUSE Enterprise Linux 12    on EM64T & Opteron
+            SUSE Enterprise Linux 15    on EM64T & Opteron
+            ORACLE Enterprise Linux 6.x on EM64T & Opteron
+            ORACLE Enterprise Linux 7.x on EM64T & Opteron
+            ORACLE Enterprise Linux 8.x on EM64T & Opteron
+            Ubuntu 16.04 LTS            on EM64T
+            Ubuntu 18.04 LTS            on EM64T
+            Ubuntu 20.04 LTS            on EM64T
+            Ubuntu 22.04 LTS            on EM64T
+
+    3.1.1 Korn shell
+
+System Requirements:
+        When installing on a Linux system, use the Korn shell (pdksh) before running the
+        installation procedure for Teradata Tools and Utilities. This ensures correct execution of the
+        installation script.  Refer to the
+            - Teradata Tools and Utilities for Red Hat Enterprise Linux Installation Guide
+            - Teradata Tools and Utilities for SUSE Linux Installation Guide
+
+
+        Note: There has been instances where the Base O/S does not have the pdksh package installed.
+
+    3.2 O/S Compatibility Packages
+
+        Given that the ODBC Application, Driver Manager, and ODBC Driver may be compiled and linked using different
+        versions of the compiler and linker, a compatibility package may need to be installed onto the target
+        machine in order to satisfy a missing libstdc++ dependency.
+
+        To check the libstdc++ version installed on the system:
+            - on RedHat, SUSE, or Oracle the command "rpm -q libstdc++" can be executed
+            - on Ubuntu, the command is "dpkg -l libstdc++* | grep ^ii" can be executed
+
+                O/S                           libstdc++  included on O/S
+                ===                           ===================
+        SUSE Enterprise 12            libstdc++libc6.2-2.so.3
+        SUSE Enterprise 15            libstdc++libc6.2-2.so.3
+        Ubuntu 16.04 LTS              libstdc++.so.6.0.21
+        Ubuntu 18.04 LTS              libstdc++.so.6.0.21
+
+        3.2.1 SUSE Enterprise 11
+
+              Executables and libraries that have been linked using earlier SUSE Linux versions, may
+              require a compatibility package to be installed in order to satisfy a dependency on the
+              libstdc++libc6.2-2.so.3 library for the 32-bit environment.
+
+              The libstdc++-libc6.2-2.so.3 library is contained in the compat-libstdc++-7.3-2.96.118.i386.rpm
+              package which needs to be downloaded and installed onto the system.  An alternative is to
+              download and install the compat-libstdc++-8-3.3.4.2.i386.rpm package which provides both the
+              libstdc++-libc6.2-2.so.3 and libstdc++.so.5 libraries
+
+    3.3 Supported Teradata Database versions
+
+            Teradata Database 16.10
+            Teradata Database 16.20
+            Teradata Database 17.00
+            Teradata Database 17.10
+            Teradata Database 17.20
+
+    3.4 ODBC Dependencies
+
+    3.5 ODBC Application development
+
+        When developing an ODBC C++ application, the developer must use the
+        recommended compiler
+        1) Red Hat - GNU Project C and C++ Compiler Version 4.8.5
+        2) SUSE    - GNU Project C and C++ Compiler Version 4.8.5
+
+        Be sure to specify the correct compiler options when compiling your
+        64-bit application with gcc/g++ C/C++ and use -DODBC64 to enable the
+        64-bit definitions in the Driver Manager include files.
+
+
+4.0 ODBC Software Installation/Uninstallation
+
+    4.1 ODBC Dependencies
+
+        Prior to installing the "ODBC Driver for Teradata", the dependency products that are listed
+        in section 3.4 must be installed first and in the order listed below.
+
+        Refer to the "TTU Installation Guide for UNIX and Linux" for additional information.
+
+    4.2 Installation
+
+        The following command is used to install the "ODBC Driver for Teradata".
+
+            RedHat, SUSE, or Oracle: rpm -ivh <package> --nodeps
+            Ubuntu                 : dpkg -i <package>
+
+        where <package> is the rpm or deb package to be installed.  An example of an rpm
+        package name is tdodbc-17.20.00.00-1.noarch.rpm and a deb package name is
+        tdodbc-17.20.00.00-1.noarch.deb.
+
+    4.3 Uninstallation
+
+        The following command is used to uninstall the "ODBC Driver for Teradata".
+
+            RedHat, SUSE, or Oracle: rpm -e <package>
+            Ubuntu                 : dpkg -r <package>
+
+        where <package> is the rpm or deb package to be uninstalled.  An example of an rpm
+        package name is tdodbc-16.20.00.00-1.noarch.rpm and a deb package name is
+        tdodbc-16.20.00.00-1.noarch.deb.
+
+    4.4 Upgrades
+
+    4.5 List Software Product
+
+        The following command is used to display information about the
+        "ODBC Driver for Teradata" installed.
+
+            RedHat, SUSE, or Oracle: rpm -qa | grep odbc
+            Ubuntu                 : dpkg -l "tdodbc*" | grep ^ii
+
+
+5.0 Configuration
+
+    The support of both 32-bit and 64-bit ODBC Drivers on the same system will
+    require the users to review their procedures in creating and maintaining
+    their ini files.  It is important that separate ini files are maintained for
+    the 32-bit and 64-bit ODBC Drivers.
+
+    5.1 ODBC and ODBCINST INI Configuration
+
+        A template odbc.ini and odbcinst.ini file are available in the 32-bit
+        and 64-bit common ODBC directories.  It is strongly recommended that the ini
+        files in the common directories be used as they are release independent of the
+        TTU release directories.
+        Common Directories:
+            <InstallDir>/teradata/client/ODBC_32
+            <InstallDir>/teradata/client/ODBC_64
+
+        5.1.1 odbc.ini
+
+        By default, the .odbc.ini  file is  expected to  be in  the  user's
+        home directory but the ODBCINI environment variable  may be used
+        to specify the pathname of the .odbc.ini file.  A sample of this file
+        containing Teradata DSN entries can be copied from the recommended
+        ODBC Directories
+            <install dir>/teradata/client/ODBC_32/odbc.ini
+            <install dir>/teradata/client/ODBC_64/odbc.ini
+        These template files do not have the leading period, so when copying these
+        files to a user's home directory a leading period must be added.
+
+        5.1.2 odbcinst.ini
+
+        The odbcinst.ini is read by the Driver Manager to determine which drivers
+        are currently installed, and their ODBC SDK compliance.  There is just
+        one odbcinst.ini file per the InstallDir value set in the odbc.ini file
+        and resides in the InstallDir directory.
+
+        Note:  A common error seen when running an ODBC application is the
+               inability to load the ODBC driver.  The cause is usually that of
+               the .ini file not defining the exact location of the driver.  So,
+               it is *key* that these .ini files contains the exact location of
+               the ODBC driver(s) to be used.  The odbc.ini and odbcinst.ini will
+               be automatically edited to reflect the location of the Teradata
+               ODBC driver upon package installation.
+
+6.0 Sample ODBC Applications
+
+    6.1 adhoc C/C++ program
+
+        This is a sample program which demonstrates how to
+            - Connect to a Data Source
+            - Execute a SQL statement
+            - Retrieve the result set created from the SQL statement
+
+        This sample program is written in both C and C++ language and is
+        located under the 32-bit and 64-bit TTU release directories
+             <install dir>/teradata/client/<ttu release>/odbc_32/samples
+             <install dir>/teradata/client/<ttu release>/odbc_64/samples
+
+
+7.0 Restrictions
+
+    When calling SQLBindParameter with a data type that contains fractional seconds, 
+    you must set the DecimalDigit to 6 as that is what the driver will truncate to.  
+    Previous to 16.20, this could be any number between 0-6 with the same result 
+    as if you were to set it to 6, but this is incorrect and no longer supported.
+    
+    7.1 ODBC restrictions
+
+
+    7.2 Binary Compatibilities
+
+
+8.0 Limitations/Issues
+
+    8.1 DR 151194 -- STVTEST: 3P - ODBC application core dumps if ODBCINI not set.
+
+        This is a Driver Manager 6.1 problem where the ODBC Application will encounter a segmentation fault
+        when the ODBCINI and ODBCINSTINI are not set.
+
+        DataDirect's Defect ID is DD00059652 and the corresponding KnowledgeBase Article is
+        8869 : Segmentation fault when ODBCINI and ODBCINST are missing using Connect for ODCB 6.1 and Connect64 for ODBC 6.1
+               <http://cp-datadirect.kb.net/al/12/1/article.aspx?aid=8869&bt=4>
+
+    8.2 DR 151192 -- STVTEST: 3P - Memory corruption seen in the driver manager 6.1
+
+        This is a Driver Manager 6.1 problem where the ODBC Application will experience to types of failures
+
+            1.     The Driver Manager trace logic overwrites memory when appending the log sequence number.
+
+
+    8.3 DR 152281 -- Change ODBC 14.0 SQLGetInfo(SQL_KEYWORDS) to return the same keyword list as in 13.10
+
+        SQLGetInfo(SQL_KEYWORDS) returns 13.10 keyword list on Linux/Unix
+        =================================================================
+        On Linux and Unix systems the SQLGetInfo call with InfoType SQL_KEYWORDS by default
+        returns the keyword list corresponding to Teradata database 13.10 and not 14.0 even when
+        working with a 14.0 database. This limitation is due to a restriction in the Linux/Unix
+        Driver Manager.  If a future version of the Driver Manager without the restriction is used
+        with the ODBC Driver for Teradata then the environment variable setting
+        ENABLE_REL_14_SQL_KEYWORDS=Yes can be used to enable the return of the keyword list
+        corresponding to Teradata database 14.0 by the ODBC Driver for Teradata.
+
+
+9.0 Documentation
+
+    1) ODBC Driver for Teradata User Guide
+    2) www.info.teradata.com
+
+
+
+
+10.0    Support
+
+    10.1 Contact Information
+
+         Customers with support contracts may report problems with the ODBC Driver to
+         Teradata Customer Services either by phone via the regional support center or
+         on the web via Teradata@YourSevices
+             www.teradata.com
+
+         Contact your Teradata Customer Services Representative for details.
+
+
+
+Appendix A - ODBC Coexistence (32-bit and 64-bit)
+             ====================================
+
+    The coexistence of the 32-bit and 64-bit ODBC Driver on a single system introduces a
+    new dimension to managing the ODBC Drivers.  The main item to remember is that these
+    two ODBC Drivers are two separate sub-directories.  And the odbc.ini and odbcinst.ini
+    can not be shared between them.  In viewing the tree structure in Appendix B, you will
+    see an odbc_32 and odbc_64 directory for the 32-bit and 64-bit ODBC Driver.
+
+
+
+Appendix B - ODBC Integrated Directories
+             ===========================
+
+    This Appendix categorizes the different sections of the ODBC Integrated
+    directories and what their purposes are.
+
+
+    Recommended and Release Independent ODBC Directories
+    ====================================================
+
+        /opt       /  teradata/client/   ODBC_32/
+                                              include -> /opt/teradata/client/17.20/include
+                                              lib -> /opt/teradata/client/17.20/lib
+                                              locale -> /opt/teradata/client/17.20/odbc_32/locale
+                                              odbc.ini
+                                              odbcinst.ini
+
+        /opt       /  teradata/client/   ODBC_64/
+                                              include -> /opt/teradata/client/17.20/include
+                                              lib -> /opt/teradata/client/17.20/lib64
+                                              locale -> /opt/teradata/client/17.20/odbc_64/locale
+                                              odbc.ini
+                                              odbcinst.ini
+
+
+Appendix C - libstdc++ library dependency
+             ========================
+
+             An ODBC Application will fail to execute on a REDHAT AS 3.0 system if the libstdc++.so.6 library
+             does not exist on the system.  Below is an example of what information is displayed.
+
+             When building the 32-bit C++ sample ODBC application as a 32-bit executable on a 64-bit system it
+             may be necessary to install libstdc++43-devel-32bit on SUSE 11 64Bit OS otherwise the application
+             may complain about the following linking errors.
+             /usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../x86_64-suse-linux/bin/ld: skipping incompatible
+                 /usr/lib64/gcc/x86_64-suse-linux/4.3/libstdc+.so when searching for -lstdc+
+             /usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../x86_64-suse-linux/bin/ld: skipping incompatible
+                 /usr/lib64/gcc/x86_64-suse-linux/4.3/libstdc+.a when searching for -lstdc+
+             /usr/lib64/gcc/x86_64-suse-linux/4.3/../../../../x86_64-suse-linux/bin/ld: cannot find -lstdc++
+                 collect2: ld returned 1 exit status
+
+
+/usr/lib/libstdc++.so.6: version `GLIBCXX_3.4' not found (required by /usr/lib/libodbc.so)
+/usr/lib/libstdc++.so.6: version `CXXABI_1.3' not found (required by /usr/lib/libodbc.so)
+/usr/lib/libstdc++.so.6: version `GLIBCXX_3.4' not found (required by /usr/lib/libodbcinst.so)
+/usr/lib/libstdc++.so.6: version `CXXABI_1.3' not found (required by /usr/lib/libodbcinst.so)
+/usr/lib/libstdc++.so.6: version `GLIBCXX_3.4' not found (required by /usr/lib/libivicu24.so)
+/usr/lib/libstdc++.so.6: version `CXXABI_1.3' not found (required by /usr/lib/libivicu24.so)
+
+Appendix D - Client Usage Note on SLOB transfer from Server to Client
+             ========================================================
+
+                    --- Teradata ODBC Driver 16.10 and later ---
+
+    Terminology:
+
+        LOB:    Large OBject
+
+        CLOB:   Character LOB (a data type)
+
+        BLOB:   Binary LOB (a data type)
+
+        SLOB:   Smart LOB (a transport mechanism)
+
+        DLOB:   Deferred LOB (a transport mechanism)
+
+        Response Message:
+                A message containing multiple data items returned from the
+                database to the driver.
+
+        Maximum Response Message Bytes (MaxRespSize):
+                The maximum size of a response message; configurable by
+                the client, up to a maximum of 16 MB.
+
+        Maximum Single LOB Bytes (MaxSingleLOBBytes):
+                The maximum size of any one SLOB (CLOB, BLOB) item. Configurable
+                by the client. Default is 0.
+
+        Total LOB Bytes Per Row (MaxTotalLOBBytesPerRow):
+                The maximum size of all LOB bytes per row. Configurable by
+                the client. Default is 0.
+
+    In previous versions of Teradata ODBC Driver, non-LOB data are retrieved
+    from the database to the driver in-line. Each LOB data item requires a
+    round trip to the database for retrieval. This is not very efficient if
+    the LOB data items are relatively small.
+
+    Starting in TD ODBC Driver 16.10, LOB data can be retrieved from the
+    database to the driver in-line, if certain size restrictions are met.
+
+    This note describes how the client can configure the driver to return LOB
+    data in-line.
+
+    When the driver retrieves a LOB data item via an additional round trip,
+    the mechanism is called deferred LOB (DLOB).
+
+    When the database returns a LOB item in-line, the mechanism is called
+    Smart LOB (SLOB).
+
+    The client has no way of knowing the actual mechanism for any LOB item
+    transfer. The client may experience better or worse performance.
+
+    When either MaxSingleLOBBytes or MaxTotalLOBBytesPerRow is 0, the database
+    will not send any SLOBs; all LOBs are sent as DLOB.
+
+    Currently, MaxSingleLOBBytes defaults to 4000 and MaxTotalLOBBytesPerRow 
+    defaults to 65536.
+
+    Users can configure their preferred MaxSingleLOBBytes and
+    MaxTotalLOBBytesPerRow values using the following methods.
+
+    1. In Windows,
+        a. start up Microsoft ODBC Administrator,
+        b. select the appropriate data source (in User DSN tab or System DSN tab),
+        c. click [Configure…], click [Options>>], click [Advanced].
+        d. Enter preferred values of MaxResponseBufferSize, MaxSingleLOBBytes
+           and MaxTotalLOBBytesPerRow in the appropriate text boxes.
+
+    2.   In UNIX, edit the odbc.ini file. Add or change the following values.
+
+                [my_test_dsn]
+                MaxRespSize            = 10000000
+                MaxSingleLOBBytes      =  1000000
+                MaxTotalLOBBytesPerRow = 10000000
+
+    3.   Add to the connection string.
+
+                MaxRespSize=10000000;MaxSingleLOBBytes=1000000;
+                MaxTotalLOBBytesPerRow=10000000
+
+    When both MaxSingleLOBBytes and MaxTotalLOBBytesPerRow are greater than 0,
+    then the database will respond as follows:
+
+       If ((the size of current LOB) < (MaxSingleLOBBytes)
+            AND
+           ((the current cumulative total size of SLOBs) < (MaxTotalLOBBytesPerRow))
+          )
+       then the current LOB will be sent as SLOB,
+       otherwise the current LOB will be sent as DLOB.
+
+    To maximize data transfer efficiency (from database to driver to client),
+    the following should be noted:
+
+    SLOB items are returned in order of column numbers and may span several
+    response messages. The driver only keeps a maximum of two response
+    messages at any one time. For example, when the driver is processing
+    messages 2 and 3, the SLOB data that was originally in message 1 is
+    destroyed and is no longer available.
+
+    It is advisable (for efficiency reasons) to access SLOB data items
+    sequentially (using SQLBindCol(), or SQLGetData(col i) where i is
+    increasing. For example,
+
+        SQLGetData(col 2) (SLOB is in response message 1)
+        SQLGetData(col 8) (SLOB is in response message 3)
+        SQLGetData(col 9) (SLOB is in response message 3)
+
+    When retrieving LOB data randomly, the data may not be copied from SLOB
+    data, but through the less efficient deferred LOB (DLOB) method. For
+    example:
+
+        SQLGetData(col 8) (SLOB is in response message 3)
+        SQLGetData(col 9) (SLOB is in response message 3)
+        SQLGetData(col 2) (SLOB was in response message 1, already deleted)
+
+    If SLOBs from columns 8 and 9 resides in the same response message, they
+    will be copied from the SLOBs to the client. If SLOB from col2 resides in
+    a previous response message, the message is probably destroyed after
+    accessing columns 8 and 9; hence the LOB from col 2 is retrieved as
+    deferred LOB (DLOB) (even though it was already retrieved once before as
+    SLOB and discarded).
+
+    Note that LOB data items are always retrievable in any sequence; they are
+    either retrieved as SLOB or DLOB. SLOB retrieval through sequential
+    access is more efficient than DLOB retrieval through random access.
+
+    A client has the ability to decide (to some degree) which LOB columns are
+    to be retrieved as SLOB while others are to be retrieved on-demand as
+    DLOB. There is no mechanism to advise the database to send LOB data of
+    specific columns as SLOBs. The client configurable parameter
+    MaxSingleLOBBytes is a surrogate method to achieve this. For example, if
+    a database contains two columns: photo thumbnails of no more than 1 MB
+    each, and high definition photos that are much greater 1 MB each. Let us
+    say a (contrived) client application will only process the high definition
+    photos if the thumbnail contains blue sky. The client should configure
+    MaxSingleLOBBytes as 1 MB. So thumbnails are always retrieved as SLOB and
+    high definition photos are retrieved as DLOB, and only if needed.
+
+    Another example. If we know ahead of time that columns 1 to 3 are always
+    1 MB or less and we want to send these as SLOB always; and columns 4 to 10
+    are 10 MB each and we never want to send these as SLOB. Then we can
+    configure the following:
+
+        MaxRespSize            =  3100000
+        MaxSingleLOBBytes      =  1000000  // each SLOB
+        MaxTotalLOBBytesPerRow =  3000000  // sum of all SLOBs
+
+    The MaxRespSize should be big enough to contain all SLOB data plus all
+    non-LOB data (such as integer, varchar, deferred LOB locator information)
+    of the row.
+
+    The value of MaxRespSize can be tuned to meet application data processing
+    efficiency. If the data columns are independent of each other and
+    parallel processing is possible, then MaxRespSize can be set to be less
+    than the sum of the sizes of all SLOB columns (so that SLOBs are sent back
+    in several response messages). If all the data from all the columns are
+    needed by the application before processing can begin, then we want all
+    SLOBs to be sent in one response message; in this case we want to set
+    MaxRespSize to be (at least) the sum of the sizes of all SLOB columns (up
+    to 16 MB).
+
+    If MaxTotalLOBBytesPerRow is less than or equal to the MaxRespSize, then
+    the driver will always cache all SLOB columns and non-LOB columns; thus an
+    application can randomly access the data even though the recommendation is
+    to retrieve the data in sequential access mode.
+

@@ -1,0 +1,53 @@
+LINUX_PP2_C.17.20.00.01.txt:
+*****************************************************************************
+This file describes:
+* PP2 C 17.20.00.01
+
+* sqlpp__linux_x8664.17.20.00.01-1.tar.gz is a compressed TARed file that
+  contains PP2 E-fix version.17.20.00.01 for LINUX (64bit).
+
+*****************************************************************************
+Supported Platforms:
+* Novell SUSE Linux Enterprise 12 (64-bit EM64T/Opteron)
+
+*****************************************************************************
+
+How to install this package:
+
+1.  Log on to LINUX system as root user.
+
+2.  If necessary, uncompress and untar all files as follows:
+
+      # gunzip <filename.tar.gz>
+      # tar xof <filename.tar>
+
+3.  If applicable, remove previous software as follows:
+
+      # rpm -e --nodeps sqlpp
+
+4.  Install all the dependencies.
+
+5.  Install the software as follows:
+
+      # rpm -ivh --nodeps sqlpp-17.20.00.01-1.x86_64.rpm
+
+*****************************************************************************
+
+Below is a list of all DRs included in this product since TTU 17.10 release.
+
+Please note: most efixes are not released for all platforms.
+
+*****************************************************************************
+*** EFIX 17.20.00.01 ********************************************************
+*****************************************************************************
+PREPROC-4386
+         Build SQLPP with new UselDir library
+PREPROC-4387
+         Uninstallation of COBPP doesn't remove ppbmain if SQLPP is installed
+         on the client machine
+
+*****************************************************************************
+*** EFIX 17.20.00.00 ********************************************************
+*****************************************************************************
+ PREPROC-4367	
+          Build SQLPP using new LINUX compiler

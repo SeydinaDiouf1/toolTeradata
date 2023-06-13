@@ -1,0 +1,53 @@
+Copyright 2022 Teradata. All rights reserved.
+
+Description:
+
+Enhancement and problem fixed by this release are listed below:
+
+Teradata kafkaaxsmod 17.20.00.002
+=================================
+SA-54074 : 
+   Abstract: Kafka AM core dumps on RHEL 8.x
+
+Teradata kafkaaxsmod 17.20.00.001
+=================================
+SA-53980   
+   Abstract: Kafka Axsmod doesn't maintain message sequence in TPT restart job
+SA-53921
+   Abstract: Handle the purge data issue on kafka topic
+SA-53730   
+   Abstract: Kafka Access module to provide Job statistics
+SA-51508   
+   Abstract: Provide getkey functionality for JSON messages
+SA-53995
+   Abstract: [ Install ] KAFKAAXSMOD requires libsasl2.so.3 or above on Linux platform
+
+Teradata kafkaaxsmod 17.20.00.000
+=================================
+SA-53557
+   Abstract: TPT kafka access Module reports generic errors for most of the failures
+SA-53611
+   Abstract: Update Copyright of Kafka Access Module
+SA-53739 
+   Abstract: New Linux compiler for KAFKAAXSMOD
+SA-53517
+   Abstract: Kafka access module to be able to pick partitions dynamically			 
+Installation Instructions:
+
+1. kafkaaxsmod1720__linux_x8664.17.20.00.02-1.tar.gz is a compressed TARed file that
+   contains the Teradata Kafka Access Module package.
+
+2. It is not necessary to remove the existing version of
+   Teradata Kafka Access Module on the system.
+
+3. Log on to Linux system as root user.
+
+4. Uncompress the kafkaaxsmod1720__linux_x8664.17.20.00.02-1.tar.gz file as follows:
+
+   # gunzip -c kafkaaxsmod1720__linux_x8664.17.20.00.02-1.tar.gz | tar xvf -
+
+5. Install the software as follows:
+
+   # cd kafkaaxsmod1720
+   # rpm -Uvh --force --nodeps kafkaaxsmod1720-17.20.00.02-1.x86_64.rpm
+
